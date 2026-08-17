@@ -160,6 +160,13 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 .wp-status { color: var(--gray); font-size: .82rem; font-style: italic; }
 #wp-range { width: 160px; }
 
+/* enquiry modal */
+.enq-box { width: min(560px, 100%); }
+.enq-body { padding: 20px; overflow-y: auto; }
+.enq-sub { margin-bottom: 16px; color: var(--gray); }
+.enq-sub b { color: var(--ink); }
+.enq-body .contact-form { max-width: none; }
+
 /* about */
 .about { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: start; }
 .about-text p { margin-bottom: 1.15rem; }

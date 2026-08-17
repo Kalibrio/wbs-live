@@ -60,7 +60,7 @@
     <h1>War and Peace</h1>
     <div class="price">$4,000.00</div>
     <div class="size"><b>Size:</b> 97 × 130 cm / 38 × 51 in</div>
-    <a class="btn" href="mailto:lbodin@gmail.com?subject=Enquiry%3A%20War%20and%20Peace">ENQUIRE TO PURCHASE</a>
+    <button class="btn" onclick="enqOpen()">ENQUIRE TO PURCHASE</button>
     <button class="btn btn-outline" onclick="wpOpen()">VIEW ON A WALL</button>
     <div class="desc">
 <p>War &amp; Peace transforms the silhouette of an autonomous military drone into a minimalist geometric composition of angular planes and restrained color fields, while a small white dove — the timeless symbol of peace — emerges within the structure almost as an afterthought. Constructed from sharp forms in ultramarine, muted white, yellow accents, and deep shadowed tones, the work reflects the uneasy coexistence of humanity’s highest ideals and its most advanced systems of conflict.</p>
@@ -293,6 +293,51 @@
   addEventListener('resize', () => { if (!$('wp').hidden) layout(); });
   addEventListener('keydown', e => { if (e.key === 'Escape') wpClose(); });
 })();
+</script>
+
+<div class="wp-overlay enq" id="enq" hidden>
+  <div class="wp-box enq-box">
+    <div class="wp-head">
+      <span>Enquire about War and Peace</span>
+      <button class="wp-close" onclick="enqClose()" aria-label="Close">&times;</button>
+    </div>
+    <div class="enq-body">
+      <p class="enq-sub">War and Peace &middot; 97 × 130 cm / 38 × 51 in &middot; <b>$4,000.00</b></p>
+      <form class="contact-form" id="enq-form" onsubmit="return enqSend(this)">
+        <label>Name <span class="req">*</span><input type="text" name="name" required></label>
+        <label>Email <span class="req">*</span><input type="email" name="email" required></label>
+        <label>Message <span class="req">*</span><textarea name="message" rows="5" required>I would like to enquire about “War and Peace” ($4,000.00).</textarea></label>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit">SEND ENQUIRY</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+window.enqOpen = () => { document.getElementById('enq').hidden = false; document.body.style.overflow = 'hidden'; };
+window.enqClose = () => { document.getElementById('enq').hidden = true; document.body.style.overflow = ''; };
+async function enqSend(f) {
+  const btn = f.querySelector('button[type=submit]');
+  btn.disabled = true; btn.textContent = 'SENDING...';
+  try {
+    const r = await fetch('https://wbs-api.kalibrio.com/contact.php', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: f.name.value, email: f.email.value, message: f.message.value,
+        website: f.website.value,
+        artwork: 'War and Peace — $4,000.00 — https://wangbodinstudio.com/art/war-and-peace/'
+      })
+    });
+    if (!(await r.json()).ok) throw 0;
+    f.outerHTML = '<p class="lede">Thank you! Your enquiry has been sent — we will get back to you shortly.</p>';
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'SEND ENQUIRY';
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Enquiry: War and Peace') +
+      '&body=' + encodeURIComponent(f.message.value + '\n\n— ' + f.name.value + ' <' + f.email.value + '>');
+  }
+  return false;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') enqClose(); });
 </script>
 </main>
 
