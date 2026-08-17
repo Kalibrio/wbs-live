@@ -89,18 +89,31 @@
     <div>
       <h4>Stay Updated</h4>
       <p><a href="https://www.facebook.com/people/wangbodinstudio/61590570517074/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/wangbodinstudio/" target="_blank" rel="noopener">Instagram</a></p>
-      <form class="newsletter" action="mailto:lbodin@gmail.com?subject=Newsletter%20sign-up" method="get" onsubmit="return wbsSignup(this)">
+      <form class="newsletter" onsubmit="return wbsSignup(this)">
         <input type="email" name="email" placeholder="Email address" required>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit">Sign Up</button>
       </form>
-      <p class="fine">I’d like to receive exclusive discounts and the latest information</p>
+      <p class="fine newsletter-note">I’d like to receive exclusive discounts and the latest information</p>
     </div>
   </div>
 </footer>
 <script>
-function wbsSignup(f) {
-  location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-    '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+async function wbsSignup(f) {
+  const btn = f.querySelector('button');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const r = await fetch('https://wbs-api.kalibrio.com/subscribe.php', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: f.email.value, website: f.website.value})
+    });
+    if (!(await r.json()).ok) throw 0;
+    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Sign Up';
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
+      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+  }
   return false;
 }
 </script>

@@ -37,7 +37,25 @@
 
 <div class="crumbs"><a href="/originals/">ORIGINALS</a> &gt; WAR AND PEACE</div>
 <div class="product">
-  <div class="product-img"><img src="/art/war-and-peace.jpg" alt="War and Peace"></div>
+  <div class="product-media">
+  <div class="product-img"><img id="main-art" src="/art/gallery/war-and-peace-1.jpg" alt="War and Peace"></div>
+
+  <div class="thumbs">
+    <button class="thumb on" onclick="wbsSwap(this, '/art/gallery/war-and-peace-1.jpg')"><img src="/art/gallery/war-and-peace-1.jpg" alt="War and Peace view 1"></button>
+    <button class="thumb" onclick="wbsSwap(this, '/art/gallery/war-and-peace-2.jpg')"><img src="/art/gallery/war-and-peace-2.jpg" alt="War and Peace view 2"></button>
+    <button class="thumb" onclick="wbsSwap(this, '/art/gallery/war-and-peace-3.jpg')"><img src="/art/gallery/war-and-peace-3.jpg" alt="War and Peace view 3"></button>
+    <button class="thumb" onclick="wbsSwap(this, '/art/gallery/war-and-peace-4.jpg')"><img src="/art/gallery/war-and-peace-4.jpg" alt="War and Peace view 4"></button>
+    <button class="thumb" onclick="wbsSwap(this, '/art/gallery/war-and-peace-5.jpg')"><img src="/art/gallery/war-and-peace-5.jpg" alt="War and Peace view 5"></button>
+    <button class="thumb" onclick="wbsSwap(this, '/art/gallery/war-and-peace-6.png')"><img src="/art/gallery/war-and-peace-6.png" alt="War and Peace view 6"></button>
+  </div>
+  <script>
+  function wbsSwap(btn, src) {
+    document.getElementById('main-art').src = src;
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('on'));
+    btn.classList.add('on');
+  }
+  </script>
+  </div>
   <div class="product-info">
     <h1>War and Peace</h1>
     <div class="price">$4,000.00</div>
@@ -66,18 +84,31 @@
     <div>
       <h4>Stay Updated</h4>
       <p><a href="https://www.facebook.com/people/wangbodinstudio/61590570517074/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/wangbodinstudio/" target="_blank" rel="noopener">Instagram</a></p>
-      <form class="newsletter" action="mailto:lbodin@gmail.com?subject=Newsletter%20sign-up" method="get" onsubmit="return wbsSignup(this)">
+      <form class="newsletter" onsubmit="return wbsSignup(this)">
         <input type="email" name="email" placeholder="Email address" required>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit">Sign Up</button>
       </form>
-      <p class="fine">I’d like to receive exclusive discounts and the latest information</p>
+      <p class="fine newsletter-note">I’d like to receive exclusive discounts and the latest information</p>
     </div>
   </div>
 </footer>
 <script>
-function wbsSignup(f) {
-  location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-    '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+async function wbsSignup(f) {
+  const btn = f.querySelector('button');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const r = await fetch('https://wbs-api.kalibrio.com/subscribe.php', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: f.email.value, website: f.website.value})
+    });
+    if (!(await r.json()).ok) throw 0;
+    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Sign Up';
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
+      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+  }
   return false;
 }
 </script>
