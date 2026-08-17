@@ -71,7 +71,8 @@
     <div class="wp-head">
       <span>Buddha &middot; 97 × 130 cm at true scale</span>
       <span class="wp-head-actions">
-        <button class="wp-mode" id="wp-full-btn" onclick="wpFull()">Full screen</button>
+        <button class="wp-mode" onclick="wpFull()">Full screen</button>
+        <button class="wp-mode" onclick="wpShare()">Share</button>
         <button class="wp-mode" onclick="wpSave()">Save image</button>
         <button class="wp-close" onclick="wpClose()" aria-label="Close">&times;</button>
       </span>
@@ -132,22 +133,7 @@
   };
   window.wpClose = () => { $('wp').hidden = true; document.body.style.overflow = ''; };
   window.wpWall = c => { wallColor = c; $('wp-wall').style.background = c; };
-  window.wpFull = () => {
-    const wp = $('wp');
-    const on = wp.classList.toggle('full');
-    $('wp-full-btn').textContent = on ? 'Exit full screen' : 'Full screen';
-    if (on && wp.requestFullscreen) wp.requestFullscreen().catch(() => {});
-    else if (!on && document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    layout();
-  };
-  document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement && $('wp').classList.contains('full')) {
-      $('wp').classList.remove('full');
-      $('wp-full-btn').textContent = 'Full screen';
-      layout();
-    }
-  });
-  window.wpSave = () => {
+  function compose() {
     const room = $('wp-room'), art = $('wp-art');
     const W = room.clientWidth, H = room.clientHeight, S = 2;
     const c = document.createElement('canvas');
@@ -181,13 +167,56 @@
     x.fillStyle = '#151515'; x.fillRect(ax, ay, aw, ah);
     x.restore();
     x.drawImage(art, ax + 6, ay + 6, aw - 12, ah - 12);
-    c.toBlob(b => {
-      const a2 = document.createElement('a');
-      a2.href = URL.createObjectURL(b);
-      a2.download = 'wang-bodin-studio-' + SLUG + '-wall-preview.jpg';
-      document.body.appendChild(a2); a2.click(); a2.remove();
-      setTimeout(() => URL.revokeObjectURL(a2.href), 5000);
-    }, 'image/jpeg', 0.92);
+    return new Promise(res => c.toBlob(res, 'image/jpeg', 0.92));
+  }
+  const FNAME = 'wang-bodin-studio-' + SLUG + '-wall-preview.jpg';
+  window.wpSave = async () => {
+    const b = await compose();
+    const a2 = document.createElement('a');
+    a2.href = URL.createObjectURL(b);
+    a2.download = FNAME;
+    document.body.appendChild(a2); a2.click(); a2.remove();
+    setTimeout(() => URL.revokeObjectURL(a2.href), 5000);
+  };
+  window.wpFull = async () => {
+    const b = await compose();
+    const url = URL.createObjectURL(b);
+    const v = document.createElement('div');
+    v.className = 'wp-viewer';
+    v.innerHTML = '<img src="' + url + '" alt="Wall preview"><button class="wp-viewer-close" aria-label="Close">&times;</button>';
+    const done = () => {
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      v.remove();
+      URL.revokeObjectURL(url);
+      removeEventListener('keydown', onKey);
+    };
+    const onKey = e => { if (e.key === 'Escape') done(); };
+    v.addEventListener('click', done);
+    addEventListener('keydown', onKey);
+    document.body.appendChild(v);
+    if (v.requestFullscreen) v.requestFullscreen().catch(() => {});
+  };
+  window.wpShare = async () => {
+    const b = await compose();
+    const file = new File([b], FNAME, { type: 'image/jpeg' });
+    const shareData = {
+      files: [file],
+      title: 'Buddha — Wang Bodin Studio',
+      text: 'Buddha (97 × 130 cm) on my wall — wall preview from Wang Bodin Studio',
+      url: 'https://wangbodinstudio.com/art/buddha/'
+    };
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share(shareData); return; } catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    // Fallback: download the image, then open a pre-filled email to attach it to.
+    const a2 = document.createElement('a');
+    a2.href = URL.createObjectURL(b);
+    a2.download = FNAME;
+    document.body.appendChild(a2); a2.click(); a2.remove();
+    setTimeout(() => URL.revokeObjectURL(a2.href), 5000);
+    location.href = 'mailto:?subject=' + encodeURIComponent('Buddha — wall preview') +
+      '&body=' + encodeURIComponent('The wall preview image was just saved to your downloads — attach it here.\n\n' +
+        'Buddha (97 × 130 cm) by Wang Bodin Studio\nhttps://wangbodinstudio.com/art/buddha/');
   };
   window.wpScene = s => {
     mode = s;
