@@ -79,7 +79,8 @@
         <button class="wp-mode on" id="wp-mode-room" onclick="wpScene('room')">Living room</button>
         <button class="wp-mode" id="wp-mode-empty" onclick="wpScene('empty')">Gallery</button>
         <label class="wp-mode" for="wp-file">Your photo</label>
-        <input type="file" id="wp-file" accept="image/*" onchange="wpPhoto(this)" hidden>
+        <input type="file" id="wp-file" accept="image/*,.heic,.heif" onchange="wpPhoto(this)" hidden>
+        <span class="wp-status" id="wp-status"></span>
       </div>
       <div class="wp-group" id="wp-cal" hidden><span class="wp-label">Photo wall height</span>
         <input type="range" min="200" max="400" value="270" id="wp-range" oninput="wpCal(this.value)">
@@ -125,21 +126,46 @@
     ['room', 'empty'].forEach(k => $('wp-mode-' + k).classList.toggle('on', k === s));
     layout();
   };
+  function applyPhoto(url) {
+    mode = 'photo';
+    const room = $('wp-room');
+    room.classList.add('photo');
+    room.style.backgroundImage = 'url(' + url + ')';
+    $('wp-wall').style.display = $('wp-floor').style.display = $('wp-sofa').style.display = 'none';
+    $('wp-cal').hidden = false;
+    ['room', 'empty'].forEach(k => $('wp-mode-' + k).classList.remove('on'));
+    $('wp-status').textContent = '';
+    layout();
+  }
+  function loadHeicLib() {
+    return window.heic2any ? Promise.resolve() : new Promise((ok, bad) => {
+      const s = document.createElement('script');
+      s.src = '/assets/heic2any.min.js';
+      s.onload = ok; s.onerror = bad;
+      document.head.appendChild(s);
+    });
+  }
   window.wpPhoto = inp => {
     const f = inp.files && inp.files[0];
     if (!f) return;
-    const r = new FileReader();
-    r.onload = e => {
-      mode = 'photo';
-      const room = $('wp-room');
-      room.classList.add('photo');
-      room.style.backgroundImage = 'url(' + e.target.result + ')';
-      $('wp-wall').style.display = $('wp-floor').style.display = $('wp-sofa').style.display = 'none';
-      $('wp-cal').hidden = false;
-      ['room', 'empty'].forEach(k => $('wp-mode-' + k).classList.remove('on'));
-      layout();
+    inp.value = '';
+    const url = URL.createObjectURL(f);
+    const probe = new Image();
+    // Native decode first (Safari handles HEIC itself); fall back to in-browser conversion.
+    probe.onload = () => applyPhoto(url);
+    probe.onerror = async () => {
+      URL.revokeObjectURL(url);
+      $('wp-status').textContent = 'Converting photo…';
+      try {
+        await loadHeicLib();
+        let out = await heic2any({ blob: f, toType: 'image/jpeg', quality: 0.9 });
+        if (Array.isArray(out)) out = out[0];
+        applyPhoto(URL.createObjectURL(out));
+      } catch (e) {
+        $('wp-status').textContent = 'Could not read this photo — try JPEG or PNG.';
+      }
     };
-    r.readAsDataURL(f);
+    probe.src = url;
   };
   window.wpCal = v => { wallCm = +v; $('wp-cal-val').innerHTML = (v / 100).toFixed(1) + '&nbsp;m'; layout(true); };
   // drag to reposition

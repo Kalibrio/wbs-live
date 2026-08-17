@@ -145,6 +145,7 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 }
 .wp-mode.on { border-color: var(--ink); background: var(--panel); }
 .wp-note { color: var(--gray); font-size: .78rem; margin-top: 4px; }
+.wp-status { color: var(--gray); font-size: .82rem; font-style: italic; }
 #wp-range { width: 160px; }
 
 /* about */
