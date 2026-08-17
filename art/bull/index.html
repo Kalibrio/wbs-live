@@ -152,9 +152,9 @@
     layout();
   }
   function loadHeicLib() {
-    return window.heic2any ? Promise.resolve() : new Promise((ok, bad) => {
+    return window.HeicTo ? Promise.resolve() : new Promise((ok, bad) => {
       const s = document.createElement('script');
-      s.src = '/assets/heic2any.min.js';
+      s.src = '/assets/heic-to.js';
       s.onload = ok; s.onerror = bad;
       document.head.appendChild(s);
     });
@@ -172,8 +172,8 @@
       $('wp-status').textContent = 'Converting photo…';
       try {
         await loadHeicLib();
-        let out = await heic2any({ blob: f, toType: 'image/jpeg', quality: 0.9 });
-        if (Array.isArray(out)) out = out[0];
+        const convert = HeicTo.heicTo || HeicTo;
+        const out = await convert({ blob: f, type: 'image/jpeg', quality: 0.9 });
         applyPhoto(URL.createObjectURL(out));
       } catch (e) {
         $('wp-status').textContent = 'Could not read this photo — try JPEG or PNG.';
