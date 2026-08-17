@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wang Bodin Studio</title>
+  <meta name="description" content="Wang Bodin Studio" />
+  <meta property="og:title" content="Wang Bodin Studio" />
+  <meta property="og:description" content="Wang Bodin Studio" />
+  <meta property="og:url" content="https://wbs.kalibrio.com" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23121110'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' fill='%23e8e2d6' text-anchor='middle'%3EWB%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #121110;
+      --ink: #e8e2d6;
+      --ink-soft: #9a927f;
+      --line: #3a362f;
+      --accent: #c9a24b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+    }
+    .mark {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      letter-spacing: 0.55em;
+      text-indent: 0.55em; /* balances letter-spacing on the last glyph */
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      animation: rise 1.2s ease-out both;
+    }
+    h1 {
+      margin-top: 1.4rem;
+      font-size: clamp(2.4rem, 7vw, 4.6rem);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+      animation: rise 1.2s ease-out 0.15s both;
+    }
+    .rule {
+      width: 72px;
+      height: 1px;
+      background: var(--accent);
+      margin: 2.2rem auto;
+      animation: rise 1.2s ease-out 0.3s both;
+    }
+    .note {
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 2.4vw, 1.15rem);
+      animation: rise 1.2s ease-out 0.45s both;
+    }
+    footer {
+      position: fixed;
+      bottom: 1.6rem;
+      left: 0;
+      right: 0;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--line);
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mark, h1, .rule, .note { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">Wang &middot; Bodin</div>
+    <h1>Wang Bodin Studio</h1>
+    <div class="rule"></div>
+    <p class="note">Coming soon.</p>
+  </main>
+  <footer>wbs.kalibrio.com</footer>
+</body>
+</html>
