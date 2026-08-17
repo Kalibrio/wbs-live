@@ -107,6 +107,13 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
   padding: 14px 20px; border-bottom: 1px solid var(--line); font-size: .9rem; letter-spacing: .04em;
 }
 .wp-close { background: none; border: 0; font-size: 1.6rem; cursor: pointer; line-height: 1; }
+.wp-head-actions { display: flex; align-items: center; gap: 10px; }
+
+/* fullscreen mode */
+.wp-overlay.full { padding: 0; }
+.wp-overlay.full .wp-box { width: 100%; height: 100vh; max-height: 100vh; }
+.wp-overlay.full .wp-room { flex: 1; height: auto; min-height: 0; }
+.wp-overlay.full .wp-controls { flex-shrink: 0; }
 .wp-room {
   position: relative; overflow: hidden; height: min(56vh, 520px);
   background-size: cover; background-position: center;
