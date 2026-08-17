@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mont Saint-Michel Art | Wang Bodin Studio</title>
+<title>Mont Saint-Michel | Wang Bodin Studio</title>
 <meta name="description" content="Mont Saint-Michel (2026) — acrylic on canvas, 73 × 60 cm / 29 × 24 in. Original, unique work by Wang Bodin Studio, signed with certificate of authenticity. €2,600 / US$2,800.">
 <link rel="canonical" href="https://wangbodinstudio.com/art/mont-saint-michel/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/art/mont-saint-michel/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/art/mont-saint-michel/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/art/mont-saint-michel/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
-<meta property="og:title" content="Mont Saint-Michel Art | Wang Bodin Studio">
+<meta property="og:title" content="Mont Saint-Michel | Wang Bodin Studio">
 <meta property="og:description" content="Mont Saint-Michel (2026) — acrylic on canvas, 73 × 60 cm / 29 × 24 in. Original, unique work by Wang Bodin Studio, signed with certificate of authenticity. €2,600 / US$2,800.">
 <meta property="og:image" content="https://wangbodinstudio.com/art/gallery/mont-saint-michel-1.jpg">
 <meta property="og:url" content="https://wangbodinstudio.com/art/mont-saint-michel/">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/art/mont-saint-michel/" class="on">EN</a><span> | </span><a href="/fr/art/mont-saint-michel/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -83,12 +89,12 @@
     </div>
     <div class="wp-controls">
       <div class="wp-group"><span class="wp-label">Wall</span>
-        <button class="wp-swatch" style="background:#f4f1ea" onclick="wpWall('#f4f1ea')" aria-label="Cream wall"></button>
-        <button class="wp-swatch" style="background:#dcdcd6" onclick="wpWall('#dcdcd6')" aria-label="Gray wall"></button>
-        <button class="wp-swatch" style="background:#adb9bd" onclick="wpWall('#adb9bd')" aria-label="Slate wall"></button>
-        <button class="wp-swatch" style="background:#2e5a77" onclick="wpWall('#2e5a77')" aria-label="Blue wall"></button>
-        <button class="wp-swatch" style="background:#3c4440" onclick="wpWall('#3c4440')" aria-label="Charcoal wall"></button>
-        <button class="wp-swatch" style="background:#7d6b52" onclick="wpWall('#7d6b52')" aria-label="Ochre wall"></button>
+        <button class="wp-swatch" style="background:#f4f1ea" onclick="wpWall('#f4f1ea')" aria-label="Cream"></button>
+        <button class="wp-swatch" style="background:#dcdcd6" onclick="wpWall('#dcdcd6')" aria-label="Gray"></button>
+        <button class="wp-swatch" style="background:#adb9bd" onclick="wpWall('#adb9bd')" aria-label="Slate"></button>
+        <button class="wp-swatch" style="background:#2e5a77" onclick="wpWall('#2e5a77')" aria-label="Blue"></button>
+        <button class="wp-swatch" style="background:#3c4440" onclick="wpWall('#3c4440')" aria-label="Charcoal"></button>
+        <button class="wp-swatch" style="background:#7d6b52" onclick="wpWall('#7d6b52')" aria-label="Ochre"></button>
       </div>
       <div class="wp-group"><span class="wp-label">Scene</span>
         <button class="wp-mode on" id="wp-mode-room" onclick="wpScene('room')">Living room</button>
@@ -199,22 +205,21 @@
     const file = new File([b], FNAME, { type: 'image/jpeg' });
     const shareData = {
       files: [file],
-      title: 'Mont Saint-Michel — Wang Bodin Studio',
-      text: 'Mont Saint-Michel (60 × 73 cm) on my wall — wall preview from Wang Bodin Studio',
+      title: "Mont Saint-Michel — Wang Bodin Studio",
+      text: "Mont Saint-Michel (60 × 73 cm) on my wall — wall preview from Wang Bodin Studio",
       url: 'https://wangbodinstudio.com/art/mont-saint-michel/'
     };
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try { await navigator.share(shareData); return; } catch (e) { if (e && e.name === 'AbortError') return; }
     }
-    // Fallback: download the image, then open a pre-filled email to attach it to.
     const a2 = document.createElement('a');
     a2.href = URL.createObjectURL(b);
     a2.download = FNAME;
     document.body.appendChild(a2); a2.click(); a2.remove();
     setTimeout(() => URL.revokeObjectURL(a2.href), 5000);
-    location.href = 'mailto:?subject=' + encodeURIComponent('Mont Saint-Michel — wall preview') +
-      '&body=' + encodeURIComponent('The wall preview image was just saved to your downloads — attach it here.\n\n' +
-        'Mont Saint-Michel (60 × 73 cm) by Wang Bodin Studio\nhttps://wangbodinstudio.com/art/mont-saint-michel/');
+    location.href = 'mailto:?subject=' + encodeURIComponent("Mont Saint-Michel — wall preview") +
+      '&body=' + encodeURIComponent("The wall preview image was just saved to your downloads — attach it here." + '\n\n' +
+        "Mont Saint-Michel (60 × 73 cm) — Wang Bodin Studio" + '\nhttps://wangbodinstudio.com/art/mont-saint-michel/');
   };
   window.wpScene = s => {
     mode = s;
@@ -253,24 +258,22 @@
     inp.value = '';
     const url = URL.createObjectURL(f);
     const probe = new Image();
-    // Native decode first (Safari handles HEIC itself); fall back to in-browser conversion.
     probe.onload = () => applyPhoto(url);
     probe.onerror = async () => {
       URL.revokeObjectURL(url);
-      $('wp-status').textContent = 'Converting photo…';
+      $('wp-status').textContent = "Converting photo…";
       try {
         await loadHeicLib();
         const convert = HeicTo.heicTo || HeicTo;
         const out = await convert({ blob: f, type: 'image/jpeg', quality: 0.9 });
         applyPhoto(URL.createObjectURL(out));
       } catch (e) {
-        $('wp-status').textContent = 'Could not read this photo — try JPEG or PNG.';
+        $('wp-status').textContent = "Could not read this photo — try JPEG or PNG.";
       }
     };
     probe.src = url;
   };
   window.wpCal = v => { wallCm = +v; $('wp-cal-val').innerHTML = (v / 100).toFixed(1) + '&nbsp;m'; layout(true); };
-  // drag to reposition
   const art = $('wp-art');
   let drag = null;
   art.addEventListener('pointerdown', e => {
@@ -299,7 +302,7 @@
       <form class="contact-form" id="enq-form" onsubmit="return enqSend(this)">
         <label>Name <span class="req">*</span><input type="text" name="name" required></label>
         <label>Email <span class="req">*</span><input type="email" name="email" required></label>
-        <label>Message <span class="req">*</span><textarea name="message" rows="5" required>I would like to enquire about “Mont Saint-Michel” ($2,800.00).</textarea></label>
+        <label>Message <span class="req">*</span><textarea name="message" rows="5" required>I would like to enquire about “Mont Saint-Michel” (€2,600 / US$2,800).</textarea></label>
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn" type="submit">SEND ENQUIRY</button>
       </form>
@@ -311,21 +314,21 @@ window.enqOpen = () => { document.getElementById('enq').hidden = false; document
 window.enqClose = () => { document.getElementById('enq').hidden = true; document.body.style.overflow = ''; };
 async function enqSend(f) {
   const btn = f.querySelector('button[type=submit]');
-  btn.disabled = true; btn.textContent = 'SENDING...';
+  btn.disabled = true; btn.textContent = "SENDING...";
   try {
     const r = await fetch('https://wbs-api.kalibrio.com/contact.php', {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         name: f.name.value, email: f.email.value, message: f.message.value,
         website: f.website.value,
-        artwork: 'Mont Saint-Michel — $2,800.00 — https://wangbodinstudio.com/art/mont-saint-michel/'
+        artwork: "Mont Saint-Michel — €2,600 / US$2,800 — https://wangbodinstudio.com/art/mont-saint-michel/"
       })
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="lede">Thank you! Your enquiry has been sent — we will get back to you shortly.</p>';
+    f.outerHTML = '<p class="lede">' + "Thank you! Your enquiry has been sent — we will get back to you shortly." + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'SEND ENQUIRY';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Enquiry: Mont Saint-Michel') +
+    btn.disabled = false; btn.textContent = "SEND ENQUIRY";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Enquiry: Mont Saint-Michel") +
       '&body=' + encodeURIComponent(f.message.value + '\n\n— ' + f.name.value + ' <' + f.email.value + '>');
   }
   return false;
@@ -366,11 +369,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

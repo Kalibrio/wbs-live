@@ -6,6 +6,9 @@
 <title>About The Artists | Wang Bodin Studio</title>
 <meta name="description" content="Wang Bodin Studio is the collaborative practice of Jiang Wang and Ludovic Bodin — geometric cubism from Paris exploring what remains human in the age of machine intelligence.">
 <link rel="canonical" href="https://wangbodinstudio.com/about/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/about/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/about/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/about/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="About The Artists | Wang Bodin Studio">
@@ -31,6 +34,9 @@
     <a href="/about/" class="on">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/about/" class="on">EN</a><span> | </span><a href="/fr/about/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -59,7 +65,7 @@
 </ul>
 <p class="cv-note">Full CV and press kit available on request — <a href="/contact/">contact the studio</a>.</p>
   </div>
-  <div class="about-img"><img src="/art/about.jpg" alt="Jiang Wang and Ludovic Bodin, Wang Bodin Studio" loading="lazy" decoding="async"></div>
+  <div class="about-img"><img src="/art/about.jpg" alt="Jiang Wang & Ludovic Bodin — Wang Bodin Studio" loading="lazy" decoding="async"></div>
 </div>
 </main>
 
@@ -95,11 +101,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

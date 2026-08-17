@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Animals | Wang Bodin Studio</title>
-<meta name="description" content="Animals — original paintings by Wang Bodin Studio.">
+<meta name="description" content="Animals — Wang Bodin Studio.">
 <link rel="canonical" href="https://wangbodinstudio.com/animals/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/animals/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/animals/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/animals/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="Animals | Wang Bodin Studio">
-<meta property="og:description" content="Animals — original paintings by Wang Bodin Studio.">
+<meta property="og:description" content="Animals — Wang Bodin Studio.">
 <meta property="og:image" content="https://wangbodinstudio.com/art/gallery/woman-3.png">
 <meta property="og:url" content="https://wangbodinstudio.com/animals/">
 <meta name="twitter:card" content="summary_large_image">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/animals/" class="on">EN</a><span> | </span><a href="/fr/animals/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -54,7 +60,7 @@
   <div class="card-meta">
     <div class="card-title">Cat</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$4,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€4,000 / US$4,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 
@@ -63,7 +69,7 @@
   <div class="card-meta">
     <div class="card-title">Bull</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$3,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€3,000 / US$3,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 
@@ -72,7 +78,7 @@
   <div class="card-meta">
     <div class="card-title">Dog</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$3,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€3,000 / US$3,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 
@@ -81,7 +87,7 @@
   <div class="card-meta">
     <div class="card-title">Horse</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$3,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€3,000 / US$3,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 </div>
@@ -119,11 +125,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

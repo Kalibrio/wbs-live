@@ -6,6 +6,9 @@
 <title>Shop Art | Wang Bodin Studio</title>
 <meta name="description" content="Wang Bodin Studio — the collaborative practice of Jiang Wang and Ludovic Bodin. Geometric cubism from Paris, painting what remains human in the age of machine intelligence. Currently exhibiting at 96 Avenue Kléber, 75116 Paris.">
 <link rel="canonical" href="https://wangbodinstudio.com/shop-art/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/shop-art/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/shop-art/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/shop-art/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="Shop Art | Wang Bodin Studio">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/shop-art/" class="on">EN</a><span> | </span><a href="/fr/shop-art/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -102,11 +108,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

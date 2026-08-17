@@ -66,6 +66,9 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 .site-head nav { display: flex; gap: 34px; align-items: center; flex-wrap: wrap; }
 .site-head nav > a, .nav-item > a { font-size: .95rem; padding: 6px 0; }
 .site-head nav a.on { border-bottom: 1px solid var(--ink); }
+.lang-switch { font-size: .82rem; color: var(--gray); margin-left: 8px; }
+.lang-switch a { padding: 4px 2px; color: var(--gray); }
+.lang-switch a.on { color: var(--ink); font-weight: 700; }
 .nav-item { position: relative; }
 .nav-item .drop {
   display: none; position: absolute; top: 100%; left: -14px; background: #fff;

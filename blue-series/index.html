@@ -6,6 +6,9 @@
 <title>Blue Series | Wang Bodin Studio</title>
 <meta name="description" content="Blue is the studio’s mother tongue — a color of distance and intimacy, memory and clarity, machine logic and inner life. These works hold the human figure inside that single, concentrated key.">
 <link rel="canonical" href="https://wangbodinstudio.com/blue-series/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/blue-series/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/blue-series/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/blue-series/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="Blue Series | Wang Bodin Studio">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/blue-series/" class="on">EN</a><span> | </span><a href="/fr/blue-series/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -54,7 +60,7 @@
   <div class="card-meta">
     <div class="card-title">Woman</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$4,000.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€3,500 / US$4,000</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 
@@ -63,7 +69,7 @@
   <div class="card-meta">
     <div class="card-title">Bull</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$3,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€3,000 / US$3,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 
@@ -72,7 +78,7 @@
   <div class="card-meta">
     <div class="card-title">Beach</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$2,500.00</b> <span>120 × 60 cm / 47 × 23 in</span></div>
+    <div class="card-price"><b>€2,300 / US$2,500</b> <span>60 × 120 cm / 24 × 47 in</span></div>
   </div>
 </a>
 
@@ -81,7 +87,7 @@
   <div class="card-meta">
     <div class="card-title">Cat</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$4,500.00</b> <span>97 × 130 cm / 38 × 51 in</span></div>
+    <div class="card-price"><b>€4,000 / US$4,500</b> <span>130 × 97 cm / 51 × 38 in</span></div>
   </div>
 </a>
 </div>
@@ -119,11 +125,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

@@ -6,6 +6,9 @@
 <title>Wang Bodin Studio</title>
 <meta name="description" content="Wang Bodin Studio — the collaborative practice of Jiang Wang and Ludovic Bodin. Geometric cubism from Paris, painting what remains human in the age of machine intelligence. Currently exhibiting at 96 Avenue Kléber, 75116 Paris.">
 <link rel="canonical" href="https://wangbodinstudio.com/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="Wang Bodin Studio">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/" class="on">EN</a><span> | </span><a href="/fr/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -52,7 +58,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Woman, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,700 / US$4,000</span>
+    <span class="hcard-price">€3,500 / US$4,000</span>
   </div>
 </a>
 
@@ -61,7 +67,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Cat, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€4,100 / US$4,500</span>
+    <span class="hcard-price">€4,000 / US$4,500</span>
   </div>
 </a>
 
@@ -70,7 +76,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Space, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,700 / US$4,000</span>
+    <span class="hcard-price">€3,500 / US$4,000</span>
   </div>
 </a>
 
@@ -79,7 +85,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">War and Peace, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,700 / US$4,000</span>
+    <span class="hcard-price">€3,500 / US$4,000</span>
   </div>
 </a>
 
@@ -88,7 +94,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Buddha, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€4,100 / US$4,500</span>
+    <span class="hcard-price">€4,000 / US$4,500</span>
   </div>
 </a>
 
@@ -113,7 +119,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Woman, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,700 / US$4,000</span>
+    <span class="hcard-price">€3,500 / US$4,000</span>
   </div>
 </a>
 
@@ -122,7 +128,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Bull, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,200 / US$3,500</span>
+    <span class="hcard-price">€3,000 / US$3,500</span>
   </div>
 </a>
 
@@ -140,7 +146,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Cat, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€4,100 / US$4,500</span>
+    <span class="hcard-price">€4,000 / US$4,500</span>
   </div>
 </a>
   </div>
@@ -157,7 +163,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Robot, 2026</span>
     <span class="hcard-dims">100 × 100 cm / 39 × 39 in</span>
-    <span class="hcard-price">€3,200 / US$3,500</span>
+    <span class="hcard-price">€3,000 / US$3,500</span>
   </div>
 </a>
 
@@ -166,7 +172,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Dog, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€3,200 / US$3,500</span>
+    <span class="hcard-price">€3,000 / US$3,500</span>
   </div>
 </a>
 
@@ -175,7 +181,7 @@
   <div class="hcard-meta">
     <span class="hcard-title">Buddha, 2026</span>
     <span class="hcard-dims">130 × 97 cm / 51 × 38 in</span>
-    <span class="hcard-price">€4,100 / US$4,500</span>
+    <span class="hcard-price">€4,000 / US$4,500</span>
   </div>
 </a>
   </div>
@@ -222,11 +228,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }

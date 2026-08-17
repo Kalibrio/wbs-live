@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Landscapes | Wang Bodin Studio</title>
-<meta name="description" content="Landscapes — original paintings by Wang Bodin Studio.">
+<meta name="description" content="Landscapes — Wang Bodin Studio.">
 <link rel="canonical" href="https://wangbodinstudio.com/landscapes/">
+<link rel="alternate" hreflang="en" href="https://wangbodinstudio.com/landscapes/">
+<link rel="alternate" hreflang="fr" href="https://wangbodinstudio.com/fr/landscapes/">
+<link rel="alternate" hreflang="x-default" href="https://wangbodinstudio.com/landscapes/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wang Bodin Studio">
 <meta property="og:title" content="Landscapes | Wang Bodin Studio">
-<meta property="og:description" content="Landscapes — original paintings by Wang Bodin Studio.">
+<meta property="og:description" content="Landscapes — Wang Bodin Studio.">
 <meta property="og:image" content="https://wangbodinstudio.com/art/gallery/woman-3.png">
 <meta property="og:url" content="https://wangbodinstudio.com/landscapes/">
 <meta name="twitter:card" content="summary_large_image">
@@ -31,6 +34,9 @@
     <a href="/about/" class="">About The Artists</a>
     <a href="/contact/" class="">Contact</a>
     <a href="/faqs/" class="">FAQs</a>
+    <span class="lang-switch">
+      <a href="/landscapes/" class="on">EN</a><span> | </span><a href="/fr/landscapes/" class="">FR</a>
+    </span>
   </nav>
 </header>
 <main>
@@ -54,7 +60,7 @@
   <div class="card-meta">
     <div class="card-title">Mont Saint-Michel</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$2,800.00</b> <span>60 × 73 cm / 24 × 29 in</span></div>
+    <div class="card-price"><b>€2,600 / US$2,800</b> <span>73 × 60 cm / 29 × 24 in</span></div>
   </div>
 </a>
 
@@ -63,7 +69,7 @@
   <div class="card-meta">
     <div class="card-title">Beach</div>
     <div class="card-by">by Wang Bodin Studio</div>
-    <div class="card-price"><b>$2,500.00</b> <span>120 × 60 cm / 47 × 23 in</span></div>
+    <div class="card-price"><b>€2,300 / US$2,500</b> <span>60 × 120 cm / 24 × 47 in</span></div>
   </div>
 </a>
 </div>
@@ -101,11 +107,11 @@ async function wbsSignup(f) {
       body: JSON.stringify({email: f.email.value, website: f.website.value})
     });
     if (!(await r.json()).ok) throw 0;
-    f.outerHTML = '<p class="fine">Thank you — you’re on the list!</p>';
+    f.outerHTML = '<p class="fine">' + "Thank you — you’re on the list!" + '</p>';
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Sign Up';
-    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent('Newsletter sign-up') +
-      '&body=' + encodeURIComponent('Please add me to the Wang Bodin Studio newsletter: ' + f.email.value);
+    btn.disabled = false; btn.textContent = "Sign Up";
+    location.href = 'mailto:lbodin@gmail.com?subject=' + encodeURIComponent("Newsletter sign-up") +
+      '&body=' + encodeURIComponent("Please add me to the Wang Bodin Studio newsletter: " + f.email.value);
   }
   return false;
 }
