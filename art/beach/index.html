@@ -58,6 +58,7 @@
     <div class="price">$2,500.00</div>
     <div class="size"><b>Size:</b> 120 × 60 cm / 47 × 23 in</div>
     <a class="btn" href="mailto:lbodin@gmail.com?subject=Enquiry%3A%20Beach">ENQUIRE TO PURCHASE</a>
+    <button class="btn btn-outline" onclick="wpOpen()">VIEW ON A WALL</button>
     <div class="desc">
 <p>This geometric seascape merges boat, wave, beach, kite, and invisible AI systems into a single architectural composition of motion and balance. Constructed from large angular planes in ultramarine, warm cream, muted yellow, white, and restrained gold accents, the piece transforms natural elements into a structured visual language where organic life and technological intelligence coexist seamlessly.</p>
 <p>The boat becomes a symbol of human navigation through an era of accelerating change, while the wave evokes the immense force of technological transformation now reshaping society. Above, the kite introduces a sense of lightness and freedom — a reminder that even within increasingly algorithmic systems, humanity continues searching for play, imagination, and emotional connection. The beach serves as the quiet boundary between worlds: nature and machine, stillness and acceleration, human intuition and artificial intelligence.</p>
@@ -66,6 +67,112 @@
     </div>
   </div>
 </div>
+
+<div class="wp-overlay" id="wp" hidden>
+  <div class="wp-box">
+    <div class="wp-head">
+      <span>Beach &middot; 120 × 60 cm at true scale</span>
+      <button class="wp-close" onclick="wpClose()" aria-label="Close">&times;</button>
+    </div>
+    <div class="wp-room" id="wp-room">
+      <div class="wp-wall" id="wp-wall"></div>
+      <div class="wp-floor" id="wp-floor"></div>
+      <div class="wp-sofa" id="wp-sofa"><div class="wp-sofa-back"></div><div class="wp-sofa-seat"></div><div class="wp-sofa-arm l"></div><div class="wp-sofa-arm r"></div></div>
+      <img class="wp-art" id="wp-art" src="/art/gallery/beach-1.jpg" alt="Beach on a wall" draggable="false">
+    </div>
+    <div class="wp-controls">
+      <div class="wp-group"><span class="wp-label">Wall</span>
+        <button class="wp-swatch" style="background:#f4f1ea" onclick="wpWall('#f4f1ea')" aria-label="Cream wall"></button>
+        <button class="wp-swatch" style="background:#dcdcd6" onclick="wpWall('#dcdcd6')" aria-label="Gray wall"></button>
+        <button class="wp-swatch" style="background:#adb9bd" onclick="wpWall('#adb9bd')" aria-label="Slate wall"></button>
+        <button class="wp-swatch" style="background:#2e5a77" onclick="wpWall('#2e5a77')" aria-label="Blue wall"></button>
+        <button class="wp-swatch" style="background:#3c4440" onclick="wpWall('#3c4440')" aria-label="Charcoal wall"></button>
+        <button class="wp-swatch" style="background:#7d6b52" onclick="wpWall('#7d6b52')" aria-label="Ochre wall"></button>
+      </div>
+      <div class="wp-group"><span class="wp-label">Scene</span>
+        <button class="wp-mode on" id="wp-mode-room" onclick="wpScene('room')">Living room</button>
+        <button class="wp-mode" id="wp-mode-empty" onclick="wpScene('empty')">Gallery</button>
+        <label class="wp-mode" for="wp-file">Your photo</label>
+        <input type="file" id="wp-file" accept="image/*" onchange="wpPhoto(this)" hidden>
+      </div>
+      <div class="wp-group" id="wp-cal" hidden><span class="wp-label">Photo wall height</span>
+        <input type="range" min="200" max="400" value="270" id="wp-range" oninput="wpCal(this.value)">
+        <span id="wp-cal-val">2.7&nbsp;m</span>
+      </div>
+      <p class="wp-note">Shown at true scale on a 2.7&nbsp;m wall &middot; drag the artwork to reposition. Photos stay in your browser.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  const W_CM = 120, H_CM = 60;
+  let wallCm = 270, mode = 'room';
+  const $ = id => document.getElementById(id);
+  function layout(keepPos) {
+    const room = $('wp-room'), art = $('wp-art');
+    const pxPerCm = room.clientHeight / (wallCm + 40); // wall + floor band
+    art.style.width = (W_CM * pxPerCm) + 'px';
+    art.style.height = (H_CM * pxPerCm) + 'px';
+    if (!keepPos) {
+      art.style.left = (room.clientWidth / 2 - W_CM * pxPerCm / 2) + 'px';
+      art.style.top = (room.clientHeight * 0.78 - (150 + H_CM / 2) * pxPerCm) + 'px';
+    }
+    const sofa = $('wp-sofa');
+    sofa.style.width = (220 * pxPerCm) + 'px';
+    sofa.style.height = (85 * pxPerCm) + 'px';
+    sofa.style.left = (room.clientWidth / 2 - 110 * pxPerCm) + 'px';
+  }
+  window.wpOpen = () => {
+    const main = $('main-art');
+    if (main) $('wp-art').src = main.src;
+    $('wp').hidden = false; document.body.style.overflow = 'hidden'; layout();
+  };
+  window.wpClose = () => { $('wp').hidden = true; document.body.style.overflow = ''; };
+  window.wpWall = c => { $('wp-wall').style.background = c; };
+  window.wpScene = s => {
+    mode = s;
+    $('wp-room').classList.remove('photo');
+    $('wp-room').style.backgroundImage = '';
+    $('wp-wall').style.display = $('wp-floor').style.display = '';
+    $('wp-sofa').style.display = s === 'room' ? '' : 'none';
+    $('wp-cal').hidden = true;
+    ['room', 'empty'].forEach(k => $('wp-mode-' + k).classList.toggle('on', k === s));
+    layout();
+  };
+  window.wpPhoto = inp => {
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = e => {
+      mode = 'photo';
+      const room = $('wp-room');
+      room.classList.add('photo');
+      room.style.backgroundImage = 'url(' + e.target.result + ')';
+      $('wp-wall').style.display = $('wp-floor').style.display = $('wp-sofa').style.display = 'none';
+      $('wp-cal').hidden = false;
+      ['room', 'empty'].forEach(k => $('wp-mode-' + k).classList.remove('on'));
+      layout();
+    };
+    r.readAsDataURL(f);
+  };
+  window.wpCal = v => { wallCm = +v; $('wp-cal-val').innerHTML = (v / 100).toFixed(1) + '&nbsp;m'; layout(true); };
+  // drag to reposition
+  const art = $('wp-art');
+  let drag = null;
+  art.addEventListener('pointerdown', e => {
+    drag = { x: e.clientX - art.offsetLeft, y: e.clientY - art.offsetTop };
+    art.setPointerCapture(e.pointerId);
+  });
+  art.addEventListener('pointermove', e => {
+    if (!drag) return;
+    art.style.left = (e.clientX - drag.x) + 'px';
+    art.style.top = (e.clientY - drag.y) + 'px';
+  });
+  art.addEventListener('pointerup', () => { drag = null; });
+  addEventListener('resize', () => { if (!$('wp').hidden) layout(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') wpClose(); });
+})();
+</script>
 </main>
 
 <footer class="site-foot">
