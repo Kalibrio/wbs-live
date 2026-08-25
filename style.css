@@ -31,7 +31,7 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 .hero-ctas .btn-outline { margin-left: 0; }
 .promise { max-width: 640px; margin: 2.6rem auto 0; padding: 1.3rem 24px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .promise p { color: var(--gray); font-size: .92rem; }
-.promise .promise-h { color: var(--ink); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .85rem; margin-bottom: .4rem; }
+.promise .promise-h { color: var(--ink); font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
 #selected h2, .series h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.9rem; margin: 3rem 0 1rem; letter-spacing: 0; }
 .hgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
 .hcard-img { background: var(--panel); padding: 26px; }
