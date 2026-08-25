@@ -29,6 +29,9 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 .hero-sub { color: var(--gray); font-size: 1.05rem; max-width: 640px; margin: 0 auto 1.8rem; }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .hero-ctas .btn-outline { margin-left: 0; }
+.promise { max-width: 640px; margin: 2.6rem auto 0; padding: 1.3rem 24px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.promise p { color: var(--gray); font-size: .92rem; }
+.promise .promise-h { color: var(--ink); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .85rem; margin-bottom: .4rem; }
 #selected h2, .series h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.9rem; margin: 3rem 0 1rem; letter-spacing: 0; }
 .hgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
 .hcard-img { background: var(--panel); padding: 26px; }
@@ -50,6 +53,9 @@ main { max-width: 1220px; margin: 0 auto; padding: 0 24px 80px; }
 /* artwork fact block */
 .facts { line-height: 1.9; margin-bottom: 1.5rem; color: var(--ink); }
 .facts b { font-size: 1.05rem; }
+.facts-note { color: var(--gray); font-size: .85rem; }
+.enq-note { margin-top: 12px; }
+.enq-note a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* about dossier */
 .pull { font-family: 'Playfair Display', serif; font-size: 1.5rem; border-left: 2px solid var(--ink); padding-left: 18px; margin: 1.6rem 0; }
